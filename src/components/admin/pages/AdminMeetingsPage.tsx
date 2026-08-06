@@ -132,10 +132,24 @@ export default function AdminMeetingsPage({ bookings, onUpdateBookings }: AdminM
               </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-              <div><span className="text-black/40">Client:</span> <span className="font-bold">{selectedBooking.customer.fullName} ({selectedBooking.customer.email})</span></div>
-              <div><span className="text-black/40">Company:</span> <span className="font-bold">{selectedBooking.customer.company || 'N/A'}</span></div>
-              <div><span className="text-black/40">Session:</span> <span className="font-bold text-brand">{selectedBooking.meetingTitle}</span></div>
-              <div><span className="text-black/40">Google Meet:</span> <a href={selectedBooking.googleMeetLink} target="_blank" rel="noreferrer" className="text-blue-600 underline font-mono">{selectedBooking.googleMeetLink}</a></div>
+              <div><span className="text-black/40 font-semibold">Client:</span> <span className="font-bold">{selectedBooking.customer.fullName} ({selectedBooking.customer.email})</span></div>
+              <div><span className="text-black/40 font-semibold">Company:</span> <span className="font-bold">{selectedBooking.customer.company || 'N/A'}</span></div>
+              <div><span className="text-black/40 font-semibold">Session:</span> <span className="font-bold text-brand">{selectedBooking.meetingTitle}</span></div>
+              <div><span className="text-black/40 font-semibold">Google Meet:</span> <a href={selectedBooking.googleMeetLink} target="_blank" rel="noreferrer" className="text-blue-600 underline font-mono">{selectedBooking.googleMeetLink}</a></div>
+            </div>
+
+            <div className="pt-3 border-t flex flex-col sm:flex-row items-center justify-between gap-3">
+              <span className="text-xs text-emerald-600 font-bold flex items-center gap-1">
+                ✓ Auto-Synced for hello.switchit@gmail.com
+              </span>
+              <a
+                href={selectedBooking.adminGoogleCalendarUrl || `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(selectedBooking.meetingTitle)}&add=hello.switchit@gmail.com`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-xl bg-brand text-white font-bold text-xs shadow-md hover:bg-orange-600 transition-colors"
+              >
+                + Add to Admin Google Calendar
+              </a>
             </div>
           </div>
         )}

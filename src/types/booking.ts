@@ -35,6 +35,8 @@ export interface BookingRecord {
   customer: CustomerDetails;
   assignedTeamMember: TeamMember;
   status: 'upcoming' | 'completed' | 'cancelled' | 'rescheduled' | 'no-show';
+  adminGoogleCalendarUrl?: string;
+  adminGoogleCalendarSynced?: boolean;
   createdAt: string;
 }
 

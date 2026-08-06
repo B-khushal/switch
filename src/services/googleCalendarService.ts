@@ -90,10 +90,8 @@ export const INITIAL_TEAM_MEMBERS: TeamMember[] = [
 ];
 
 export function generateGoogleMeetLink(): string {
-  const chars = 'abcdefghijklmnopqrstuvwxyz';
-  const getRandomChars = (len: number) =>
-    Array.from({ length: len }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
-  return `https://meet.google.com/${getRandomChars(3)}-${getRandomChars(4)}-${getRandomChars(3)}`;
+  // Returns instant working Google Meet room launch URL
+  return `https://meet.google.com/new`;
 }
 
 export function selectRoundRobinMember(members: TeamMember[]): TeamMember {
@@ -137,6 +135,44 @@ export function generateICSFile(booking: BookingRecord) {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+export function buildGoogleCalendarUrl(
+  booking: Partial<BookingRecord>,
+  targetAdminEmail: string = 'hello.switchit@gmail.com'
+): string {
+  try {
+    const title = encodeURIComponent(
+      `${booking.meetingTitle || 'Switch It Meeting'} - ${booking.customer?.fullName || 'Client'} (${booking.customer?.company || 'Switch It'})`
+    );
+
+    const details = encodeURIComponent(
+      `Switch It Meeting Booking #${booking.id || 'NEW'}\n` +
+      `Client Name: ${booking.customer?.fullName || 'N/A'}\n` +
+      `Client Email: ${booking.customer?.email || 'N/A'}\n` +
+      `Phone: ${booking.customer?.phone || 'N/A'}\n` +
+      `Company: ${booking.customer?.company || 'N/A'}\n` +
+      `Budget: ${booking.customer?.budget || 'N/A'}\n` +
+      `Notes: ${booking.customer?.notes || 'None'}\n\n` +
+      `Google Meet Link: ${booking.googleMeetLink || 'https://meet.google.com/new'}`
+    );
+
+    const location = encodeURIComponent(booking.googleMeetLink || 'https://meet.google.com/new');
+    
+    const dateStr = booking.date || new Date().toISOString().split('T')[0];
+    const timeSlotStr = booking.timeSlot || '10:00 AM';
+    const durationMins = booking.duration || 30;
+
+    const startDate = new Date(`${dateStr} ${timeSlotStr}`);
+    const endDate = new Date(startDate.getTime() + durationMins * 60000);
+
+    const formatIso = (d: Date) => d.toISOString().replace(/-|:|\.\d\d\d/g, '');
+    const datesParam = `${formatIso(startDate)}/${formatIso(endDate)}`;
+
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${datesParam}&details=${details}&location=${location}&add=${encodeURIComponent(targetAdminEmail)}`;
+  } catch (err) {
+    return `https://calendar.google.com/calendar/render?action=TEMPLATE&add=${encodeURIComponent(targetAdminEmail)}`;
+  }
 }
 
 export function generateInitialBookings(): BookingRecord[] {

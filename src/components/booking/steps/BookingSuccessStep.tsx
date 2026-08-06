@@ -105,23 +105,34 @@ export default function BookingSuccessStep({ booking, onClose, onReschedule }: B
       </div>
 
       {/* Action Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
         <button
           onClick={() => generateICSFile(booking)}
-          className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-white border border-black/10 hover:border-brand text-xs font-bold text-[#111111] shadow-sm hover:shadow transition-all"
+          className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-white border border-black/10 hover:border-brand text-xs font-bold text-[#111111] shadow-sm hover:shadow transition-all"
         >
-          <Download size={16} className="text-brand" />
-          <span>Download .ICS File</span>
+          <Download size={15} className="text-brand shrink-0" />
+          <span>Download .ICS</span>
         </button>
+
+        <a
+          href={booking.adminGoogleCalendarUrl || `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(booking.meetingTitle)}&add=hello.switchit@gmail.com`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-brand text-white border border-brand hover:bg-orange-600 text-xs font-bold shadow-md transition-all"
+          title="Schedule automatically in Admin Google Calendar (hello.switchit@gmail.com)"
+        >
+          <Calendar size={15} className="shrink-0" />
+          <span>Add Admin Calendar</span>
+        </a>
 
         <a
           href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(booking.meetingTitle)}&dates=${booking.date.replace(/-/g, '')}/${booking.date.replace(/-/g, '')}&details=${encodeURIComponent(booking.googleMeetLink)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-white border border-black/10 hover:border-brand text-xs font-bold text-[#111111] shadow-sm hover:shadow transition-all"
+          className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-white border border-black/10 hover:border-brand text-xs font-bold text-[#111111] shadow-sm hover:shadow transition-all"
         >
-          <Calendar size={16} className="text-brand" />
-          <span>Add to Google Calendar</span>
+          <Calendar size={15} className="text-brand shrink-0" />
+          <span>Add Client Calendar</span>
         </a>
       </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 import BookingLayout from './BookingLayout';
 import BookingReviewStep from '../steps/BookingReviewStep';
 import { MeetingType, CustomerDetails, BookingRecord } from '../../../types/booking';
-import { INITIAL_TEAM_MEMBERS, generateGoogleMeetLink, selectRoundRobinMember } from '../../../services/googleCalendarService';
+import { INITIAL_TEAM_MEMBERS, generateGoogleMeetLink, selectRoundRobinMember, buildGoogleCalendarUrl } from '../../../services/googleCalendarService';
 import { useNavigate } from '../../../router/router';
 
 interface ReviewPageProps {
@@ -44,6 +44,10 @@ export default function ReviewPage({
       status: 'upcoming',
       createdAt: new Date().toISOString(),
     };
+
+    const adminCalUrl = buildGoogleCalendarUrl(newBooking, 'hello.switchit@gmail.com');
+    newBooking.adminGoogleCalendarUrl = adminCalUrl;
+    newBooking.adminGoogleCalendarSynced = true;
 
     onConfirmBooking(newBooking);
     navigate('/meet/success');
