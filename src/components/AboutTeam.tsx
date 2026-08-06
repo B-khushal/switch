@@ -14,13 +14,13 @@ export default function AboutTeam() {
           >
             <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#FFF8EE] border border-brand/20 text-brand text-xs font-bold uppercase tracking-widest mb-4">Our DNA</span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#111111] leading-[0.95] tracking-tight mb-8">
-              Built For Brands That <span className="text-brand">Refuse To Be Average.</span>
+              We're Not Here <span className="text-brand">To Just Post Content.</span>
             </h2>
             <p className="text-lg text-black/60 mb-6 leading-relaxed">
-              Switch was born from a frustration with traditional agency models that promised the world and delivered reports instead of revenue.
+              We're here to build brands.Every business has a story, but not every business knows how to tell it. That's where SWITCH comes in
             </p>
             <p className="text-lg text-black/60 mb-10 leading-relaxed">
-              We are a collective of media buyers, creative strategists, and data scientists who operate as an extension of your business. We don't just run ads; we engineer growth systems.
+              We partner with businesses to build strong brands through creative strategy, content creation, websites, social media, and digital marketing. More than an agency, we become the creative team behind your growth.
             </p>
             
             <div className="flex items-center gap-6">
@@ -32,7 +32,7 @@ export default function AboutTeam() {
                 ))}
               </div>
               <div className="text-xs font-bold text-[#111111] uppercase tracking-widest">
-                30+ Growth Experts <br/> <span className="text-black/40">Ready to scale your brand</span>
+                20+ Growth Experts <br/> <span className="text-black/40">Ready to scale your brand</span>
               </div>
             </div>
           </motion.div>

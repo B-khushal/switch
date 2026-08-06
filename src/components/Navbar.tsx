@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useScroll, useMotionValueEvent } from 'motion/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShieldCheck } from 'lucide-react';
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenScheduler?: () => void;
+  onOpenAdmin?: () => void;
+}
+
+export default function Navbar({ onOpenScheduler, onOpenAdmin }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -28,30 +33,53 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-8">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-sm">
-              <path d="M 22 45 L 22 58 A 20 20 0 0 0 42 78 L 65 78" stroke="#111111" strokeWidth="24" strokeLinecap="round" />
-              <path d="M 78 55 L 78 42 A 20 20 0 0 0 58 22 L 35 22" stroke="#F59E0B" strokeWidth="24" strokeLinecap="round" />
-            </svg>
-            <span className="text-2xl font-extrabold tracking-tight text-[#111111]">Switch</span>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img 
+              src="/image.png" 
+              alt="Switch Logo" 
+              className="h-10 md:h-11 w-auto object-contain mix-blend-multiply scale-[1.05] transition-transform duration-300" 
+            />
           </div>
 
-          <div className="hidden md:flex items-center space-x-8">
-            {['Home', 'Services', 'Process', 'Portfolio', 'About', 'Contact'].map((item) => (
+          <div className="hidden md:flex items-center space-x-7">
+            {[
+              { name: 'Home', href: '#home' },
+              { name: 'Services', href: '#services' },
+              { name: 'Work', href: '#work' },
+              { name: 'Flywheel', href: '#flywheel' },
+              { name: 'Process', href: '#process' },
+              { name: 'About', href: '#about' },
+              { name: 'Contact', href: '#contact' },
+            ].map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+                key={item.name}
+                href={item.href}
                 className="text-sm font-medium text-black/80 hover:text-brand transition-colors duration-300 relative group"
               >
-                {item}
+                {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand rounded-full transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
 
-          <button className="hidden md:flex items-center justify-center bg-[#111111] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-brand shadow-lg shadow-black/10 transition-all duration-300">
-            Book Discovery Call
-          </button>
+          <div className="hidden md:flex items-center gap-3">
+            {onOpenAdmin && (
+              <button
+                onClick={onOpenAdmin}
+                className="p-2 rounded-full bg-[#FAFAFA] border border-black/10 text-black/60 hover:text-brand hover:border-brand/30 transition-all"
+                title="Open Enterprise Admin Dashboard"
+              >
+                <ShieldCheck size={18} />
+              </button>
+            )}
+
+            <button 
+              onClick={onOpenScheduler}
+              className="flex items-center justify-center bg-[#111111] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-brand shadow-lg shadow-black/10 transition-all duration-300 cursor-pointer"
+            >
+              Book Discovery Call
+            </button>
+          </div>
 
           <button 
             className="md:hidden text-text-main hover:text-brand transition-colors"
@@ -69,19 +97,44 @@ export default function Navbar() {
         className={`fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden ${isMobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
       >
         <div className="flex flex-col space-y-6 text-xl font-medium">
-          {['Home', 'Services', 'Process', 'Portfolio', 'About', 'Contact'].map((item) => (
+          {[
+            { name: 'Home', href: '#home' },
+            { name: 'Services', href: '#services' },
+            { name: 'Work', href: '#work' },
+            { name: 'Flywheel', href: '#flywheel' },
+            { name: 'Process', href: '#process' },
+            { name: 'About', href: '#about' },
+            { name: 'Contact', href: '#contact' },
+          ].map((item) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+              key={item.name}
+              href={item.href}
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-text-main hover:text-brand transition-colors"
             >
-              {item}
+              {item.name}
             </a>
           ))}
-          <button className="bg-brand text-white font-bold px-6 py-4 rounded-full mt-4 w-full">
+          <button 
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              if (onOpenScheduler) onOpenScheduler();
+            }} 
+            className="bg-brand text-white font-bold px-6 py-4 rounded-full mt-4 w-full text-center cursor-pointer"
+          >
             Book Discovery Call
           </button>
+          {onOpenAdmin && (
+            <button 
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onOpenAdmin();
+              }} 
+              className="bg-black/5 text-[#111111] font-bold px-6 py-3 rounded-full text-sm text-center"
+            >
+              Open Admin Portal
+            </button>
+          )}
         </div>
       </motion.div>
     </>

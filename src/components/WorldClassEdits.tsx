@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { motion, useInView, useAnimation } from 'motion/react';
+import React from 'react';
+import { motion } from 'motion/react';
+import CustomVideoPlayer from './ui/CustomVideoPlayer';
 
 const videos = [
   {
@@ -25,52 +26,26 @@ const videos = [
 ];
 
 const VideoCard: React.FC<{ video: any; index: number }> = ({ video, index }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(containerRef, { margin: "-100px", once: false });
-
-  useEffect(() => {
-    if (videoRef.current) {
-      if (isInView) {
-        videoRef.current.play().catch(e => console.log('Autoplay prevented:', e));
-      } else {
-        videoRef.current.pause();
-      }
-    }
-  }, [isInView]);
-
   return (
     <motion.div
-      ref={containerRef}
       initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: "easeOut" }}
-      className="relative w-full aspect-[9/16] rounded-[24px] md:rounded-[32px] overflow-hidden group border border-black/5 bg-white hover:border-brand/40 transition-all duration-500 hover:scale-[1.03] shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_60px_rgba(249,160,0,0.15)]"
+      className="relative w-full aspect-[9/16] rounded-[24px] md:rounded-[32px] overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:shadow-[0_30px_60px_rgba(249,160,0,0.15)] transition-all duration-500 hover:scale-[1.03]"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70 z-10 opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
-      
-      <video
-        ref={videoRef}
+      <CustomVideoPlayer
         src={video.url}
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover scale-[1.02] transition-transform duration-700 group-hover:scale-110"
+        category={video.category}
+        className="w-full h-full rounded-[24px] md:rounded-[32px]"
       />
-      
-      <div className="absolute bottom-6 left-6 right-6 z-20 translate-y-2 opacity-80 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-        <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] md:text-xs font-bold uppercase tracking-widest">
-          {video.category}
-        </div>
-      </div>
     </motion.div>
   );
 };
 
 export default function WorldClassEdits() {
   return (
-    <section className="bg-[#FAFAFA] relative py-24 md:py-32 overflow-hidden flex flex-col">
+    <section id="world-class-edits" className="bg-[#FAFAFA] relative py-24 md:py-32 overflow-hidden flex flex-col">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-brand/10 blur-[150px] rounded-full mix-blend-multiply" />
@@ -98,7 +73,7 @@ export default function WorldClassEdits() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#111111] leading-[1.05] tracking-tight max-w-4xl"
           >
-            Your footage into world class <br className="hidden md:block" />
+            Where creativity meets results. <br className="hidden md:block" />
             <span className="text-brand">edits that go viral</span>
           </motion.h2>
           
@@ -109,7 +84,7 @@ export default function WorldClassEdits() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-lg md:text-xl text-black/60 max-w-2xl mt-6 leading-relaxed"
           >
-            The production standard behind the biggest names in media, podcasts, founders, creators and brands. Shorts, reels, long form — we do it all.
+            A collection of brands we've transformed with strategy, design, content, and marketing.
           </motion.p>
         </div>
       </div>

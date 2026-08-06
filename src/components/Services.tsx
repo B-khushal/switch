@@ -5,37 +5,37 @@ import { Lightbulb, Film, Type, Users, PenTool, Headphones } from 'lucide-react'
 const services = [
   {
     icon: <Lightbulb size={28} />,
-    title: "Lead Creatives",
+    title: "Branding",
     position: "top-left",
     rotation: -6
   },
   {
     icon: <Film size={28} />,
-    title: "World-class Editors",
+    title: "Content Creation",
     position: "top-right",
     rotation: 6
   },
   {
     icon: <Type size={28} />,
-    title: "Content Writers",
+    title: "Social Media Management",
     position: "mid-left",
     rotation: -3
   },
   {
     icon: <Users size={28} />,
-    title: "Project Managers",
+    title: "Website Development",
     position: "mid-right",
     rotation: 3
   },
   {
     icon: <PenTool size={28} />,
-    title: "Designers",
+    title: "Performance Marketing",
     position: "bottom-left",
     rotation: 6
   },
   {
     icon: <Headphones size={28} />,
-    title: "Virtual Assistants",
+    title: "Business Strategy",
     position: "bottom-right",
     rotation: -6
   }
@@ -93,9 +93,10 @@ export default function Services() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-5xl md:text-7xl font-bold text-[#111111] leading-tight tracking-tight mb-6"
+              className="text-3xl md:text-5xl font-bold text-[#111111] leading-tight tracking-tight mb-6"
             >
-              Problems <span className="text-brand">we solve</span>
+              Your Business Has Goals <br />
+              <span className="text-brand">We Build the Path</span>
             </motion.h2>
             
             <motion.p 

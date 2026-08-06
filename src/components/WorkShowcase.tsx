@@ -38,7 +38,7 @@ export default function WorkShowcase() {
                   transition={{ duration: 0.6, delay: 0.1 }}
                   className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#111111] leading-[0.95] tracking-tight mb-6"
                 >
-                    Content That Stops <br className="hidden md:block"/> <span className="text-brand">The Scroll.</span>
+                    Every brand has a story. <br className="hidden md:block"/> <span className="text-brand">Here's how we tell it.</span>
                 </motion.h2>
                 
                 <motion.p 
@@ -48,7 +48,7 @@ export default function WorkShowcase() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="text-lg text-black/60 max-w-2xl mx-auto leading-relaxed"
                 >
-                    We don't create content for vanity metrics. We build creative systems that generate attention, trust, and revenue.
+                  Discover the creative work behind the businesses that chose to make the SWITCH.
                 </motion.p>
             </div>
 
@@ -63,22 +63,6 @@ export default function WorkShowcase() {
                 <CardFanCarousel />
             </motion.div>
 
-            {/* Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 border-t border-black/5 max-w-7xl mx-auto">
-                {stats.map((stat, i) => (
-                    <motion.div 
-                        key={i}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4 + (i * 0.1), duration: 0.6 }}
-                        className="text-center"
-                    >
-                        <div className="text-4xl md:text-5xl font-bold text-[#111111] mb-2">{stat.value}</div>
-                        <div className="text-xs uppercase tracking-widest font-bold text-black/40">{stat.label}</div>
-                    </motion.div>
-                ))}
-            </div>
         </div>
     </section>
   );

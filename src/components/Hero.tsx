@@ -38,7 +38,13 @@ export default function Hero() {
     <section id="home" className="relative min-h-screen pt-32 pb-24 overflow-hidden flex items-center bg-transparent">
       {/* Background Gradients & Patterns */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#F9F8F5]/80 via-[#F7F3EC]/80 to-transparent" />
+        <BGPattern 
+          variant="grid" 
+          size={48} 
+          mask="fade-bottom" 
+          className="opacity-70 text-[#111111]/20 pointer-events-none" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F9F8F5]/60 via-[#F7F3EC]/40 to-transparent" />
         
         {/* Subtle radial center glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand/5 blur-[120px] rounded-full mix-blend-multiply" />
@@ -74,28 +80,19 @@ export default function Hero() {
         <div className="noise-bg opacity-[0.03]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 w-full relative z-10 flex flex-col items-center text-center">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8 w-full relative z-10 flex flex-col items-center text-center">
         
         {/* Center Content */}
         <div className="flex flex-col items-center space-y-6 w-full pt-10 md:pt-0">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          >
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-brand/20 text-[#111111] text-xs font-bold shadow-sm">
-              🚀 Content Systems for Personal Brands
-            </div>
-          </motion.div>
           
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-[80px] font-bold text-[#111111] leading-[0.95] tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#111111] leading-tight tracking-tight max-w-5xl"
           >
-            Build Once.<br />
-            <span className="text-brand">Repurpose Everywhere.</span>
+            <span className="whitespace-nowrap">What Your Business Needs</span> <br />
+            <span className="text-brand">Is a SWITCH.</span>
           </motion.h1>
           
           <motion.p 
@@ -104,31 +101,8 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-lg md:text-xl text-black/70 max-w-2xl leading-relaxed font-body"
           >
-            We transform one piece of content into a powerful multi-platform content flywheel that drives growth across YouTube, Instagram, LinkedIn and newsletters.
+            We help businesses grow through branding, content creation, websites, social media, and digital marketing—everything you need to build a stronger brand.
           </motion.p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 pt-4 justify-center"
-          >
-            <button className="w-full sm:w-auto group flex items-center justify-center gap-2 px-8 py-4 bg-brand text-white font-bold rounded-full shadow-[0_10px_40px_rgba(249,160,0,0.2)] hover:shadow-[0_15px_50px_rgba(249,160,0,0.3)] hover:scale-[1.02] transition-all duration-300">
-              Book Discovery Call <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="w-full sm:w-auto flex items-center justify-center px-8 py-4 bg-white/50 backdrop-blur-sm text-[#111111] font-bold rounded-full border border-black/5 hover:bg-white hover:shadow-sm transition-all duration-300">
-              See How It Works
-            </button>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="pt-8"
-          >
-             <p className="text-sm font-medium text-black/40">Trusted by founders, creators and personal brands.</p>
-          </motion.div>
         </div>
       </div>
     </section>

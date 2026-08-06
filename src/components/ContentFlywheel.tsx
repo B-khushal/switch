@@ -1,21 +1,82 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Youtube, Smartphone, Instagram, Images, Linkedin, FileText, Twitter, Mail } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const platforms = [
-  { id: 1, name: 'YouTube Long Form', icon: Youtube, color: 'text-red-500', glow: 'shadow-red-500/20' },
-  { id: 2, name: 'YouTube Shorts', icon: Smartphone, color: 'text-red-400', glow: 'shadow-red-400/20' },
-  { id: 3, name: 'Instagram Reels', icon: Instagram, color: 'text-pink-500', glow: 'shadow-pink-500/20' },
-  { id: 4, name: 'Instagram Carousels', icon: Images, color: 'text-fuchsia-500', glow: 'shadow-fuchsia-500/20' },
-  { id: 5, name: 'LinkedIn Posts', icon: Linkedin, color: 'text-blue-500', glow: 'shadow-blue-500/20' },
-  { id: 6, name: 'LinkedIn Carousels', icon: FileText, color: 'text-blue-400', glow: 'shadow-blue-400/20' },
-  { id: 7, name: 'X (Twitter) Threads', icon: Twitter, color: 'text-slate-200', glow: 'shadow-slate-200/20' },
-  { id: 8, name: 'Newsletter', icon: Mail, color: 'text-emerald-500', glow: 'shadow-emerald-500/20' },
+  {
+    id: 1,
+    line1: "Instagram",
+    line2: "reels",
+    type: "insta",
+    glow: "shadow-pink-500/20"
+  },
+  {
+    id: 2,
+    line1: "Youtube",
+    line2: "Shorts",
+    type: "yt",
+    glow: "shadow-red-500/20"
+  },
+  {
+    id: 3,
+    line1: "LinkedIn",
+    line2: "Posts",
+    type: "linkedin",
+    glow: "shadow-blue-500/20"
+  },
+  {
+    id: 4,
+    line1: "Instagram",
+    line2: "carousels",
+    type: "insta",
+    glow: "shadow-pink-500/20"
+  },
+  {
+    id: 5,
+    line1: "Youtube",
+    line2: "Long Form Videos",
+    type: "yt",
+    glow: "shadow-red-500/20"
+  },
+  {
+    id: 6,
+    line1: "LinkedIn",
+    line2: "carousels",
+    type: "linkedin",
+    glow: "shadow-blue-500/20"
+  }
 ];
+
+const renderPlatformIcon = (type: string) => {
+  switch (type) {
+    case 'insta':
+      return (
+        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-tr from-[#f09433] via-[#dc2743] via-[#e1306c] to-[#bc1888] shadow-md shadow-pink-500/20 flex items-center justify-center shrink-0">
+          <Instagram className="w-5 h-5 md:w-6 md:h-6 text-white stroke-[2.2]" />
+        </div>
+      );
+    case 'yt':
+      return (
+        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-b from-[#FF2E2E] to-[#CC0000] shadow-md shadow-red-500/20 flex items-center justify-center shrink-0">
+          <svg className="w-5 h-5 md:w-6 md:h-6 text-white fill-current" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </div>
+      );
+    case 'linkedin':
+      return (
+        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-b from-[#0A66C2] to-[#004182] shadow-md shadow-blue-500/20 flex items-center justify-center shrink-0">
+          <span className="font-black text-white text-base md:text-xl font-sans tracking-tighter leading-none select-none pb-0.5">in</span>
+        </div>
+      );
+    default:
+      return null;
+  }
+};
 
 export default function ContentFlywheel() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -30,55 +91,50 @@ export default function ContentFlywheel() {
 
     if (!section || !flywheel || items.length === 0) return;
 
-    // Set initial state for items
+    // Initial state
     gsap.set(items, { 
       opacity: 0, 
       scale: 0.5,
-      filter: prefersReducedMotion ? 'blur(0px)' : 'blur(10px)',
+      filter: prefersReducedMotion ? 'blur(0px)' : 'blur(8px)',
       x: 0, 
       y: 0, 
     });
 
     const isMobile = window.innerWidth < 768;
-    // We adjust the radii so they surround the tilted taller flywheel
-    const radiusDesktopX = 260;
-    const radiusDesktopY = 260;
-    const radiusMobileX = 120;
-    const radiusMobileY = 160;
+    
+    // Increased radii so cards float comfortably outside the central flywheel wheel
+    const radiusDesktopX = 390;
+    const radiusDesktopY = 320;
+    const radiusMobileX = 160;
+    const radiusMobileY = 220;
     
     const radiusX = isMobile ? radiusMobileX : radiusDesktopX;
     const radiusY = isMobile ? radiusMobileY : radiusDesktopY;
 
-    const processSection = document.getElementById('process');
-    const animationTrigger = processSection || section;
-
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: animationTrigger,
-        start: "top 80%", // Starts animating before Process section fully enters the viewport
-        end: "+=4000", // Increased scroll distance slightly to account for starting earlier
-        scrub: 1,
+        trigger: section,
+        start: "top top", // Pins when section aligns at top of screen
+        end: "+=600",     // Fast 600px rollout distance
+        pin: true,        // Pin section while rolling out
+        scrub: 0.5,       // Smooth scrubbing
       }
     });
 
-    // Pin the section separately when it reaches the top
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      end: "+=3000",
-      pin: true,
-    });
-
-    // Animate each item
+    // Animate each item into 3-right / 3-left orbital positions
     items.forEach((item, index) => {
-      // Position 4 cards on the right and 4 on the left
-      const isRight = index < 4;
-      const subIndex = index % 4;
+      if (!item) return;
       
-      // Calculate offset to spread 4 items between -45 and 45 degrees
-      // Spacing of 30 degrees (Math.PI / 6)
-      const offset = (subIndex - 1.5) * (Math.PI / 6);
-      const angle = isRight ? offset : Math.PI + offset;
+      let angle: number;
+      if (index < 3) {
+        // 3 items on the Right side (Top-Right, Mid-Right, Bottom-Right)
+        const subIndex = index; // 0, 1, 2
+        angle = (subIndex - 1) * (Math.PI / 4); // -45deg, 0deg, 45deg
+      } else {
+        // 3 items on the Left side (Bottom-Left, Mid-Left, Top-Left)
+        const subIndex = index - 3; // 0, 1, 2
+        angle = Math.PI - (subIndex - 1) * (Math.PI / 4); // 225deg, 180deg, 135deg
+      }
       
       const targetX = Math.cos(angle) * radiusX;
       const targetY = Math.sin(angle) * radiusY;
@@ -89,18 +145,17 @@ export default function ContentFlywheel() {
         filter: 'blur(0px)',
         x: targetX,
         y: targetY,
-        duration: 1,
+        duration: 0.4,
         ease: "power2.out",
-      }, index * 0.5); // Staggered start
+      }, index * 0.1); // Fast early staggered entry
     });
 
-    // After all items are visible, accelerate flywheel rotation slightly
     if (!prefersReducedMotion) {
       tl.to(flywheel, {
-        rotation: "+=45", // Subtle extra rotation upon scroll completion
-        duration: 2,
+        rotation: "+=90",
+        duration: 1,
         ease: "power1.inOut"
-      }, "+=0.5");
+      }, "<");
     }
 
     return () => {
@@ -108,32 +163,29 @@ export default function ContentFlywheel() {
     };
   }, [prefersReducedMotion]);
 
-  // Generate 16 layers for the polygon flywheel
   const numLayers = 16;
   const layers = Array.from({ length: numLayers });
 
   return (
     <section ref={sectionRef} id="flywheel" className="bg-[#FAFAFA] text-[#111111] relative overflow-hidden h-[100svh] flex items-center justify-center">
-      {/* Background radial gradients */}
+      {/* Light Theme Background Accents */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.02)_0%,transparent_60%)] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand/5 blur-[80px] md:blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
       
       {/* Flywheel Container */}
       <div className="relative flex items-center justify-center w-full h-full max-w-7xl mx-auto z-10">
         
-        {/* The Animated Diagonal Polygon Flywheel */}
+        {/* Animated Diagonal Polygon Flywheel */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          {/* Rotate container by 25deg for the diagonal look, and scale Y to make it taller than wide */}
-          <div className="relative w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] md:w-[500px] md:h-[500px] origin-center -rotate-[25deg] scale-y-[1.1]">
+          <div className="relative w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] md:w-[480px] md:h-[480px] origin-center -rotate-[25deg] scale-y-[1.1]">
             <motion.div 
               ref={flywheelRef}
               animate={{ rotate: prefersReducedMotion ? 0 : 360 }} 
-              transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
               className="w-full h-full"
             >
               <svg viewBox="0 0 100 100" className="w-full h-full overflow-visible">
                 <defs>
-                  {/* lime -> cyan -> blue -> purple -> pink -> orange -> lime */}
                   <linearGradient id="poly-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#84cc16" />
                     <stop offset="20%" stopColor="#06b6d4" />
@@ -149,13 +201,8 @@ export default function ContentFlywheel() {
                   </filter>
                 </defs>
                 
-                {/* Render multiple layered polygons */}
                 {layers.map((_, i) => {
-                  // Hexagon points (radius ~45, center 50,50)
                   const points = "95,50 72.5,89 27.5,89 5,50 27.5,11 72.5,11";
-                  
-                  // Calculate dynamic styles for the waveform effect
-                  // Rotation offset and scale offset per layer
                   const rotation = i * 4;
                   const scale = 1 - (i * 0.025);
                   const opacity = 0.6 - (i * 0.03);
@@ -189,13 +236,13 @@ export default function ContentFlywheel() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#111111] to-[#111111]/50 tracking-tight"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#111111] to-[#111111]/70 tracking-tight"
           >
             Content<br/>Flywheel
           </motion.div>
         </div>
 
-        {/* Platform Nodes */}
+        {/* Platform Floating Nodes */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           {platforms.map((platform, i) => (
             <div 
@@ -205,14 +252,17 @@ export default function ContentFlywheel() {
             >
               <motion.div
                 animate={{ y: prefersReducedMotion ? 0 : [0, -6, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
-                className={`group flex items-center gap-2 md:gap-4 bg-white border border-black/5 shadow-xl shadow-black/5 p-2 pr-3 md:p-3 md:pr-5 rounded-full md:rounded-[24px] cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:${platform.glow}`}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
+                className={`group flex items-center gap-3 bg-white/95 backdrop-blur-md border border-black/10 shadow-lg shadow-black/5 p-2.5 pr-4 md:p-3 md:pr-5 rounded-2xl md:rounded-[22px] cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:${platform.glow}`}
               >
-                <div className={`w-8 h-8 md:w-12 md:h-12 rounded-full md:rounded-2xl bg-[#FAFAFA] border border-black/5 flex items-center justify-center ${platform.color} group-hover:scale-110 group-hover:border-black/10 transition-all duration-300 shadow-sm shrink-0`}>
-                  <platform.icon className="w-3.5 h-3.5 md:w-5 md:h-5 group-hover:rotate-6 transition-transform" />
-                </div>
-                <div className="block">
-                  <div className="text-xs md:text-sm font-bold text-[#111111] whitespace-nowrap">{platform.name}</div>
+                {renderPlatformIcon(platform.type)}
+                <div className="flex flex-col text-left">
+                  <span className="text-xs md:text-sm font-semibold text-[#111111] leading-tight">
+                    {platform.line1}
+                  </span>
+                  <span className="text-xs md:text-sm font-extrabold text-[#111111] leading-tight">
+                    {platform.line2}
+                  </span>
                 </div>
               </motion.div>
             </div>
@@ -223,3 +273,4 @@ export default function ContentFlywheel() {
     </section>
   );
 }
+

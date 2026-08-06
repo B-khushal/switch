@@ -2,11 +2,36 @@ import React from 'react';
 import { motion } from 'motion/react';
 
 const steps = [
-  { num: "01", title: "Discovery & Audit", desc: "Deep dive into your current metrics, assets, and market position." },
-  { num: "02", title: "Strategy Architecture", desc: "Building the custom roadmap for acquisition, creative, and conversion." },
-  { num: "03", title: "Asset Production", desc: "Crafting high-converting copy, viral video hooks, and landing pages." },
-  { num: "04", title: "Launch & Distribute", desc: "Deploying campaigns across selected networks with strict tracking." },
-  { num: "05", title: "Optimize & Scale", desc: "Ruthless iteration based on data to scale winners and kill losers." }
+  { 
+    num: "01", 
+    title: "Discover", 
+    subtitle: "Understanding Before Creating",
+    desc: "We learn about your business, audience, competitors, and goals to build a strong foundation for everything that follows." 
+  },
+  { 
+    num: "02", 
+    title: "Strategize", 
+    subtitle: "Building the Right Plan",
+    desc: "Every brand is different. We create a customized roadmap for your content, branding, marketing, and digital presence." 
+  },
+  { 
+    num: "03", 
+    title: "Create", 
+    subtitle: "Bringing Ideas to Life",
+    desc: "Our team designs, shoots, writes, edits, and builds everything your brand needs with creativity and purpose." 
+  },
+  { 
+    num: "04", 
+    title: "Launch", 
+    subtitle: "Taking Your Brand Live",
+    desc: "From social media and websites to campaigns and ads, we launch your brand with precision and consistency." 
+  },
+  { 
+    num: "05", 
+    title: "Grow", 
+    subtitle: "Optimizing for Long-Term Success",
+    desc: "We monitor performance, refine strategies, and continuously improve to help your business achieve sustainable growth." 
+  }
 ];
 
 export default function Process() {
@@ -17,8 +42,11 @@ export default function Process() {
         <div className="mb-20">
           <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#FFF8EE] border border-brand/20 text-brand text-xs font-bold uppercase tracking-widest mb-4">Switch Protocol</span>
           <h2 className="text-4xl md:text-6xl font-bold text-[#111111] leading-[0.95] tracking-tight">
-            Predictable <br/> <span className="text-brand">Execution.</span>
+            THE SWITCH <br/> <span className="text-brand">METHOD</span>
           </h2>
+          <p className="mt-4 text-lg text-black/60 max-w-2xl">
+            Our step-by-step methodology designed to elevate your brand and drive continuous growth.
+          </p>
         </div>
 
         <div className="relative">
@@ -41,7 +69,8 @@ export default function Process() {
                 </div>
                 
                 <div className="text-center">
-                  <h3 className="text-xl font-bold text-[#111111] mb-3">{step.title}</h3>
+                  <h3 className="text-xl font-bold text-[#111111] mb-1">{step.title}</h3>
+                  <h4 className="text-xs font-semibold text-brand tracking-wider uppercase mb-3">{step.subtitle}</h4>
                   <p className="text-black/60 text-sm leading-relaxed">{step.desc}</p>
                 </div>
               </motion.div>
@@ -52,3 +81,4 @@ export default function Process() {
     </section>
   );
 }
+

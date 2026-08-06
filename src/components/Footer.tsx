@@ -1,7 +1,11 @@
 import React from 'react';
 import { ArrowRight, Mail, Phone, MapPin } from 'lucide-react';
 
-export default function Footer() {
+interface FooterProps {
+  onOpenScheduler?: () => void;
+}
+
+export default function Footer({ onOpenScheduler }: FooterProps) {
   return (
     <footer id="contact" className="bg-[#111111] pt-32 pb-12 text-white overflow-hidden relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand opacity-10 blur-[150px] rounded-full pointer-events-none" />
@@ -16,7 +20,10 @@ export default function Footer() {
             <p className="text-xl text-white/60 mb-10 max-w-md">
               Book a free discovery call to see if we're a fit. No hard selling, just a transparent look at your growth potential.
             </p>
-            <button className="bg-brand text-white font-bold text-lg py-5 px-10 rounded-2xl shadow-xl shadow-orange-500/20 hover:scale-[1.02] transition-transform duration-300 flex items-center gap-2">
+            <button 
+              onClick={onOpenScheduler}
+              className="bg-brand text-white font-bold text-lg py-5 px-10 rounded-2xl shadow-xl shadow-orange-500/20 hover:scale-[1.02] transition-transform duration-300 flex items-center gap-2 cursor-pointer"
+            >
               Book Discovery Call <ArrowRight size={20} />
             </button>
           </div>
@@ -36,13 +43,13 @@ export default function Footer() {
               <h4 className="text-lg font-bold mb-6">Contact</h4>
               <ul className="space-y-4 text-white/60">
                 <li className="flex items-center gap-3">
-                  <Mail size={18} className="text-brand" /> hello@theswitchit.com
+                  <Mail size={18} className="text-brand" /> contact@theswitchit.in
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone size={18} className="text-brand" /> +91 98765 43210
+                  <Phone size={18} className="text-brand" /> +91 93477 18505
                 </li>
                 <li className="flex items-start gap-3">
-                  <MapPin size={18} className="text-brand mt-1" /> 123 Growth Ave, Tech District, Bangalore
+                  <MapPin size={18} className="text-brand mt-1" /> Upperpally, Attapur, Hyderabad, Telangana
                 </li>
               </ul>
             </div>
@@ -51,19 +58,20 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2 cursor-pointer">
-            <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M 22 45 L 22 58 A 20 20 0 0 0 42 78 L 65 78" stroke="#FFFFFF" strokeWidth="24" strokeLinecap="round" />
-              <path d="M 78 55 L 78 42 A 20 20 0 0 0 58 22 L 35 22" stroke="#F59E0B" strokeWidth="24" strokeLinecap="round" />
-            </svg>
-            <span className="text-xl font-extrabold tracking-tight text-white">Switch</span>
+            <img 
+              src="/image_copy.png" 
+              alt="Switch Logo" 
+              className="h-11 md:h-12 w-auto object-contain mix-blend-screen scale-[1.2] origin-left" 
+            />
           </div>
-          <div className="text-white/40 text-xs font-bold uppercase tracking-widest">
-            &copy; {new Date().getFullYear()} Switch Agency
+          <div className="flex items-center gap-4 text-white/40 text-xs font-bold uppercase tracking-widest">
+            <span>&copy; {new Date().getFullYear()} Switchit. All Rights Reserved</span>
+            <span>•</span>
+            <a href="/admin/login" className="hover:text-brand transition-colors">Admin Portal</a>
           </div>
           <div className="flex gap-6 text-white/40 text-sm font-bold uppercase tracking-widest">
-            <a href="#" className="hover:text-brand transition-colors">Twitter</a>
-            <a href="#" className="hover:text-brand transition-colors">LinkedIn</a>
-            <a href="#" className="hover:text-brand transition-colors">Instagram</a>
+            <a href="https://www.linkedin.com/company/the-switchit/" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors">LinkedIn</a>
+            <a href="https://www.instagram.com/theswitchit?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" className="hover:text-brand transition-colors">Instagram</a>
           </div>
         </div>
       </div>
