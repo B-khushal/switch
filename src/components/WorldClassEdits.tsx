@@ -73,8 +73,8 @@ export default function WorldClassEdits() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#111111] leading-[1.05] tracking-tight max-w-4xl"
           >
-            Where creativity meets results. <br className="hidden md:block" />
-            <span className="text-brand">edits that go viral</span>
+            Where creativity <br className="hidden md:block" />
+            <span className="text-brand"> meets results.</span>
           </motion.h2>
           
           <motion.p 
