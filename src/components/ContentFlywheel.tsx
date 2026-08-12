@@ -100,16 +100,14 @@ export default function ContentFlywheel() {
       y: 0, 
     });
 
-    const isMobile = window.innerWidth < 768;
+    const width = window.innerWidth;
+    const isSmallMobile = width < 480;
+    const isMobile = width >= 480 && width < 768;
+    const isTablet = width >= 768 && width < 1024;
     
-    // Increased radii so cards float comfortably outside the central flywheel wheel
-    const radiusDesktopX = 390;
-    const radiusDesktopY = 320;
-    const radiusMobileX = 160;
-    const radiusMobileY = 220;
-    
-    const radiusX = isMobile ? radiusMobileX : radiusDesktopX;
-    const radiusY = isMobile ? radiusMobileY : radiusDesktopY;
+    // Dynamic radii to keep cards comfortably outside the central flywheel wheel on all screens
+    const radiusX = isSmallMobile ? 135 : isMobile ? 175 : isTablet ? 320 : 420;
+    const radiusY = isSmallMobile ? 150 : isMobile ? 185 : isTablet ? 250 : 310;
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -129,11 +127,11 @@ export default function ContentFlywheel() {
       if (index < 3) {
         // 3 items on the Right side (Top-Right, Mid-Right, Bottom-Right)
         const subIndex = index; // 0, 1, 2
-        angle = (subIndex - 1) * (Math.PI / 4); // -45deg, 0deg, 45deg
+        angle = (subIndex - 1) * (Math.PI / 3.8); // -47deg, 0deg, 47deg
       } else {
         // 3 items on the Left side (Bottom-Left, Mid-Left, Top-Left)
         const subIndex = index - 3; // 0, 1, 2
-        angle = Math.PI - (subIndex - 1) * (Math.PI / 4); // 225deg, 180deg, 135deg
+        angle = Math.PI - (subIndex - 1) * (Math.PI / 3.8); // 227deg, 180deg, 133deg
       }
       
       const targetX = Math.cos(angle) * radiusX;
@@ -170,14 +168,14 @@ export default function ContentFlywheel() {
     <section ref={sectionRef} id="flywheel" className="bg-[#FAFAFA] text-[#111111] relative overflow-hidden h-[100svh] flex items-center justify-center">
       {/* Light Theme Background Accents */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.02)_0%,transparent_60%)] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-brand/5 blur-[80px] md:blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] h-[260px] sm:w-[360px] sm:h-[360px] md:w-[500px] md:h-[500px] bg-brand/5 blur-[80px] md:blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
       
       {/* Flywheel Container */}
       <div className="relative flex items-center justify-center w-full h-full max-w-7xl mx-auto z-10">
         
         {/* Animated Diagonal Polygon Flywheel */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[220px] h-[220px] sm:w-[320px] sm:h-[320px] md:w-[480px] md:h-[480px] origin-center -rotate-[25deg] scale-y-[1.1]">
+          <div className="relative w-[150px] h-[150px] sm:w-[220px] sm:h-[220px] md:w-[340px] md:h-[340px] lg:w-[380px] lg:h-[380px] origin-center -rotate-[25deg] scale-y-[1.1]">
             <motion.div 
               ref={flywheelRef}
               animate={{ rotate: prefersReducedMotion ? 0 : 360 }} 
@@ -236,7 +234,7 @@ export default function ContentFlywheel() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#111111] to-[#111111]/70 tracking-tight"
+            className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#111111] to-[#111111]/70 tracking-tight"
           >
             Content<br/>Flywheel
           </motion.div>
@@ -253,14 +251,14 @@ export default function ContentFlywheel() {
               <motion.div
                 animate={{ y: prefersReducedMotion ? 0 : [0, -6, 0] }}
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 }}
-                className={`group flex items-center gap-3 bg-white/95 backdrop-blur-md border border-black/10 shadow-lg shadow-black/5 p-2.5 pr-4 md:p-3 md:pr-5 rounded-2xl md:rounded-[22px] cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:${platform.glow}`}
+                className={`group flex items-center gap-2 sm:gap-3 bg-white/95 backdrop-blur-md border border-black/10 shadow-lg shadow-black/5 p-2 pr-3 sm:p-2.5 sm:pr-4 md:p-3 md:pr-5 rounded-xl sm:rounded-2xl md:rounded-[22px] cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:${platform.glow}`}
               >
                 {renderPlatformIcon(platform.type)}
                 <div className="flex flex-col text-left">
-                  <span className="text-xs md:text-sm font-semibold text-[#111111] leading-tight">
+                  <span className="text-[10px] sm:text-xs md:text-sm font-semibold text-[#111111] leading-tight">
                     {platform.line1}
                   </span>
-                  <span className="text-xs md:text-sm font-extrabold text-[#111111] leading-tight">
+                  <span className="text-[10px] sm:text-xs md:text-sm font-extrabold text-[#111111] leading-tight">
                     {platform.line2}
                   </span>
                 </div>

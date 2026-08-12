@@ -46,11 +46,19 @@ export default function CustomVideoPlayer({
     video.addEventListener('pause', handlePause);
 
     if (autoPlay) {
-      video.play().catch(() => {
-        video.muted = true;
-        setIsMuted(true);
-        video.play().catch(() => {});
-      });
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setIsPlaying(true))
+          .catch(() => {
+            video.muted = true;
+            setIsMuted(true);
+            video.play().then(() => setIsPlaying(true)).catch(() => {});
+          });
+      }
+    } else {
+      video.pause();
+      setIsPlaying(false);
     }
 
     return () => {

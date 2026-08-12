@@ -5,29 +5,34 @@ import CustomVideoPlayer from './CustomVideoPlayer';
 
 const cards = [
   {
-    category: "META ADS CAMPAIGN",
-    metrics: ["12M Views", "4.8x ROAS"],
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-holding-a-smartphone-and-talking-40348-large.mp4",
-  },
-  {
-    category: "YOUTUBE GROWTH",
-    metrics: ["+150K Subs", "Viral Engagement"],
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-young-woman-talking-on-video-call-using-a-smartphone-40292-large.mp4",
-  },
-  {
-    category: "PODCAST EDITING",
+    category: "PODCAST EDIT",
     metrics: ["2.3M Impressions", "Top 10 Charts"],
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-doing-a-vlog-style-video-40369-large.mp4",
+    videoUrl: "https://res.cloudinary.com/qmmwo8h0/video/upload/v1786551838/Podcast_Edit__ythocn.mp4",
   },
   {
-    category: "SHORT FORM CONTENT",
-    metrics: ["3M Reach", "Trending Audio"],
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-woman-recording-a-video-on-her-smartphone-40366-large.mp4",
+    category: "HIGH CONVERTING AD",
+    metrics: ["4.8x ROAS", "12M Views"],
+    videoUrl: "https://res.cloudinary.com/qmmwo8h0/video/upload/v1786551845/Ads_Edit_wc9cr8.mp4",
   },
   {
-    category: "BRAND VISUALS",
-    metrics: ["Brand Identity", "Creative Strategy"],
-    videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-man-holding-a-smartphone-and-talking-40348-large.mp4",
+    category: "MONTESSORI EDUCATION",
+    metrics: ["1.5M Views", "High Retention"],
+    videoUrl: "https://res.cloudinary.com/qmmwo8h0/video/upload/v1786551848/Montessori_education_reel_ntyjac.mp4",
+  },
+  {
+    category: "GYM & FITNESS",
+    metrics: ["3.2M Reach", "Trending Edit"],
+    videoUrl: "https://res.cloudinary.com/qmmwo8h0/video/upload/v1786551861/Gym_Edit_wluzxc.mp4",
+  },
+  {
+    category: "REAL ESTATE",
+    metrics: ["Brand Identity", "Viral Reach"],
+    videoUrl: "https://res.cloudinary.com/qmmwo8h0/video/upload/v1786551868/Typo_real-estate_d4hwi2.mp4",
+  },
+  {
+    category: "UGC PRO AD",
+    metrics: ["Scale Ready", "High CTR"],
+    videoUrl: "https://res.cloudinary.com/qmmwo8h0/video/upload/v1786551884/UGC_Pro_tjsuhl.mp4",
   }
 ];
 
@@ -44,13 +49,16 @@ export default function CardFanCarousel() {
       
       const offset = index - activeIndex;
       const absoluteOffset = Math.abs(offset);
+      const isMobile = window.innerWidth < 640;
+      const isTablet = window.innerWidth < 768;
+      const stepX = isMobile ? 65 : isTablet ? 110 : 165;
       
       gsap.to(card, {
-        x: offset * 165, // Snappy horizontal offset
-        y: absoluteOffset * 20, // Push side cards down slightly
-        rotation: offset * 4, // Fan rotation
-        scale: 1 - absoluteOffset * 0.08, // Scale down side cards
-        opacity: 1 - absoluteOffset * 0.12, // Fade side cards slightly
+        x: offset * stepX, // Responsive horizontal offset
+        y: absoluteOffset * (isMobile ? 12 : 20), // Push side cards down slightly
+        rotation: offset * (isMobile ? 3 : 4), // Fan rotation
+        scale: 1 - absoluteOffset * (isMobile ? 0.06 : 0.08), // Scale down side cards
+        opacity: absoluteOffset > 2 ? 0 : 1 - absoluteOffset * 0.15, // Hide far cards on mobile
         zIndex: cards.length - absoluteOffset,
         duration: 0.45, // Faster, super smooth transition speed
         ease: "power2.out",
@@ -97,7 +105,7 @@ export default function CardFanCarousel() {
           key={index}
           ref={(el) => (cardsRef.current[index] = el)}
           onClick={() => handleCardClick(index)}
-          className="absolute w-[275px] md:w-[340px] aspect-[9/16] rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-[0_30px_80px_rgba(0,0,0,0.10)] border border-orange-100/50 hover:shadow-[0_40px_100px_rgba(249,160,0,0.20)] transition-shadow duration-300 bg-black group"
+          className="absolute w-[230px] sm:w-[275px] md:w-[340px] aspect-[9/16] rounded-[24px] sm:rounded-[28px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-[0_30px_80px_rgba(0,0,0,0.10)] border border-orange-100/50 hover:shadow-[0_40px_100px_rgba(249,160,0,0.20)] transition-shadow duration-300 bg-black group"
           style={{ transformOrigin: "bottom center" }}
         >
           <CustomVideoPlayer 

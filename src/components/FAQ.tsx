@@ -14,15 +14,15 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-32 bg-transparent relative">
-      <div className="max-w-4xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-[#111111] tracking-tight">
+    <section className="py-20 md:py-32 bg-transparent relative">
+      <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#111111] tracking-tight">
             Frequently Asked <span className="text-brand">Questions.</span>
           </h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3.5 sm:space-y-4">
           {faqs.map((faq, index) => (
             <motion.div 
               key={index}
@@ -30,14 +30,14 @@ export default function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-[24px] border border-black/5 shadow-sm overflow-hidden"
+              className="bg-white rounded-[20px] sm:rounded-[24px] border border-black/5 shadow-xs overflow-hidden"
             >
               <button
-                className="w-full px-8 py-6 text-left flex justify-between items-center focus:outline-none"
+                className="w-full px-5 py-4 sm:px-8 sm:py-6 text-left flex justify-between items-center gap-4 focus:outline-none cursor-pointer"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
-                <span className="font-bold text-lg text-[#111111]">{faq.q}</span>
-                <div className={`w-8 h-8 rounded-xl flex items-center justify-center transition-colors ${openIndex === index ? 'bg-brand text-white' : 'bg-orange-100 text-brand'}`}>
+                <span className="font-bold text-base sm:text-lg text-[#111111]">{faq.q}</span>
+                <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${openIndex === index ? 'bg-brand text-white' : 'bg-orange-100 text-brand'}`}>
                   {openIndex === index ? <Minus size={18} /> : <Plus size={18} />}
                 </div>
               </button>
@@ -49,7 +49,7 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="px-8 pb-6 text-black/60 leading-relaxed">
+                    <div className="px-5 pb-5 sm:px-8 sm:pb-6 text-black/60 text-sm sm:text-base leading-relaxed">
                       {faq.a}
                     </div>
                   </motion.div>

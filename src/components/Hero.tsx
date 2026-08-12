@@ -91,7 +91,7 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#111111] leading-tight tracking-tight max-w-5xl"
           >
-            <span className="whitespace-nowrap">What Your Business Needs</span> <br />
+            <span className="sm:whitespace-nowrap">What Your Business Needs</span> <br />
             <span className="text-brand">Is a SWITCH.</span>
           </motion.h1>
           
