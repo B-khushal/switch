@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Compass, Sparkles, Rocket, TrendingUp, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Search, Compass, Sparkles, Rocket, TrendingUp, CheckCircle2, ArrowRight, Calendar } from 'lucide-react';
+import { useNavigate } from '../router/router';
 
 const steps = [
   { 
@@ -50,8 +51,21 @@ const steps = [
   }
 ];
 
-export default function Process() {
+interface ProcessProps {
+  onOpenScheduler?: () => void;
+}
+
+export default function Process({ onOpenScheduler }: ProcessProps = {}) {
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<number>(0);
+
+  const handleBookCall = () => {
+    if (onOpenScheduler) {
+      onOpenScheduler();
+    } else {
+      navigate('/meet/services');
+    }
+  };
 
   return (
     <section id="process" className="py-24 md:py-32 bg-[#FAFAFA] relative overflow-hidden">
@@ -261,6 +275,38 @@ export default function Process() {
             })}
           </div>
         </div>
+
+        {/* CTA Banner with Book Discovery Call Button */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-14 sm:mt-16 flex flex-col items-center justify-center text-center bg-gradient-to-b from-white to-[#FFF9F5] border border-brand/20 rounded-3xl p-8 sm:p-10 shadow-xl shadow-brand/5 relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-brand/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-orange-200/30 rounded-full blur-2xl pointer-events-none" />
+
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand/10 text-brand text-xs font-bold uppercase tracking-wider mb-3">
+            <Calendar size={14} /> Ready to Switch?
+          </span>
+
+          <h3 className="text-2xl sm:text-3xl font-bold text-[#111111] mb-3 tracking-tight">
+            Ready to implement the Switch Protocol for your brand?
+          </h3>
+          
+          <p className="text-black/60 text-sm sm:text-base max-w-lg mb-8 leading-relaxed">
+            Book a 1-on-1 discovery call to see how our proven methodology will transform your media output and grow your business.
+          </p>
+
+          <button
+            onClick={handleBookCall}
+            className="inline-flex items-center justify-center gap-3 bg-brand hover:bg-[#111111] text-white text-base font-semibold px-8 py-4 rounded-full shadow-lg shadow-brand/25 hover:shadow-xl transition-all duration-300 cursor-pointer group scale-100 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            <span>Book Discovery Call</span>
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+        </motion.div>
 
       </div>
     </section>

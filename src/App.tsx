@@ -203,7 +203,7 @@ export default function App() {
             <WorkShowcase />
             <WorldClassEdits />
             <ContentFlywheel />
-            <Process />
+            <Process onOpenScheduler={() => navigate('/meet/services')} />
             <AboutTeam />
             <Testimonials />
             <FAQ />
